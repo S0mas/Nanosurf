@@ -1,0 +1,12 @@
+<RCC>
+    <qresource prefix="/">
+        <file>commonResources/qml/Chart.qml</file>
+        <file>commonResources/qml/MyButton.qml</file>
+        <file>commonResources/qml/ButtonImage.qml</file>
+        <file>commonResources/qml/BackgroundWindow.qml</file>
+        <file>commonResources/qml/Colors.qml</file>
+        <file>commonResources/qml/AppView.qml</file>
+        <file>commonResources/img/cross.png</file>
+        <file>commonResources/img/logo.svg</file>
+    </qresource>
+</RCC>

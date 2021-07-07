@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/">
+        <file>resources/qml/main.qml</file>
+        <file>resources/qml/MyDragHandler.qml</file>
+    </qresource>
+</RCC>

@@ -1,0 +1,8 @@
+arguments: D:\\Programowanie\\Nanosurf\\bin\\guiWidgets.exe
+Current dir: D:\Programowanie\Nanosurf\bin
+File verbosity level: 0
+date       time         ( uptime  ) [ thread name/id ]                   file:line     v| 
+2021-07-07 12:59:23.908 (   0.050s) [main thread     ]             loguru.cpp:830   INFO| Logging to 'qml_latest_readable.log', mode: 'w', verbosity: 0
+2021-07-07 12:59:32.616 (   8.758s) [         8AD7EC1]     fileDataLoader.hpp:19    INFO| FileDataLoader::loadData
+2021-07-07 12:59:32.620 (   8.762s) [         8AD7EC1]     fileDataLoader.hpp:30    INFO| FileDataLoader::loadData prepering data structure for 2048
+2021-07-07 12:59:36.414 (  12.556s) [main thread     ]             loguru.cpp:526   INFO| atexit

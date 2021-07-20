@@ -16,12 +16,14 @@ find_package(Qt5 COMPONENTS Widgets REQUIRED)
 
 set(PROJECT_SOURCES
   main.cpp
-  filter.h
   logger.h
-  log_item.h
-  proxy_model.h
+  log_circular_list_model_qt.h
+  log_delegate_qt.h
+  log_filter_qt.h
+  log_item_qt.h
+  log_proxy_model_qt.h
+  log_target_interface.h
 )
-
 
 add_executable(LogsFiltering
   ${PROJECT_SOURCES}

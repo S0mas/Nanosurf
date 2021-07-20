@@ -1,15 +1,19 @@
 #pragma once
-#include "log_item.h"
-#include <QStandardItemModel>
+#include "log_item_qt.h"
+#include "log_target_interface.h"
 
-class logger {
-    QStandardItemModel model_;
+#include <vector>
+
+class logger final {
+  std::vector<log_target_interface*> targets_;
 public:
-    logger() {}
-    void log(int const severity_level, const char* msg) {
-        model_.appendRow(new log_item(severity_level, msg));
-    }
-    auto logs() noexcept {
-        return &model_;
-    }
+  auto log(int const severity_level, const char* message) -> void
+  {
+    for(auto const& target : targets_)
+      target->push_log(severity_level, message);
+  }
+  auto addTarget(log_target_interface* target) -> void
+  {
+    targets_.push_back(target);
+  }
 };

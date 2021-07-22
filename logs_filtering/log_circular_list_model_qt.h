@@ -1,34 +1,47 @@
 #pragma once
-#include "log_item_qt.h"
-#include "log_target_interface.h"
-
+#include "log_item.h"
+#include "log_subscriber_interface.h"
+#include "my_target_in_program_memory.h"
+#include <boost/circular_buffer.hpp>
 #include <QAbstractListModel>
-#include <QContiguousCache>
+#include <QDebug>
 
-class log_circular_list_model_qt final : public QAbstractListModel, public log_target_interface
+class log_circular_list_model_qt final : public QAbstractListModel, public log_subscriber_interface
 {
   Q_OBJECT
-  QContiguousCache<log_item_qt> buffer_;
-  auto push(log_item_qt&& item)
+  std::shared_ptr<boost::circular_buffer<log_item>> buffer_;
+
+  auto beginPush() -> void override
   {
-    buffer_.append(item);
+    beginInsertRows(QModelIndex(), buffer_->size(), buffer_->size() + 1);
+  }
+  auto endPush() -> void override
+  {
+    endInsertRows();
+    if(buffer_->size()+1 > buffer_->capacity())
+      emit dataChanged(index(0, 0), index(buffer_->size() - 1, 0));
   }
 public:
-  explicit log_circular_list_model_qt(int const capacity = 5000, QObject* parent = nullptr)
+  explicit log_circular_list_model_qt(my_target_in_program_memory& target, QObject* parent = nullptr)
     : QAbstractListModel(parent)
-    , buffer_{capacity}
+    , buffer_{target.buffer()}
   {
+    target.addSubscriber(this);
   }
   auto rowCount(const QModelIndex &parent = QModelIndex()) const -> int override
   {
-    return buffer_.count();
+    return buffer_->size();
   }
   auto data(const QModelIndex &index, int role = Qt::UserRole) const -> QVariant override
   {
-    return buffer_.at(index.row()).data(role);
-  }
-  auto push_log(int const severity_level, const char* message) -> void override
-  {
-      push({severity_level, message});
+    auto const& item = buffer_->at(index.row());
+    switch (role) {
+      case Qt::DisplayRole:
+        return QVariant(item.message().c_str());
+      case Qt::UserRole:
+        return item.severity_level();
+      default:
+        return QVariant();
+    }
   }
 };

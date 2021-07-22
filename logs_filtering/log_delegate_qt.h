@@ -19,8 +19,8 @@ public:
     switch (severity_level)
     {
       case 0:
-        background_brush.setColor(QColor("#121212"));
-        text_pen.setColor(QColor("#828282"));
+        background_brush.setColor(QColor("#2F2F2F"));
+        text_pen.setColor(QColor("#928282"));
         break;
       case 1:
         background_brush.setColor(QColor("#121212"));
